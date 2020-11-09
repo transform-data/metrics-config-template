@@ -1,0 +1,47 @@
+version: v0.1
+data_source:
+  name: transforms_fct
+  description: This table captures the number of transformations that the Transformer bots performed, starting in Oct 2020.
+  owners:
+    - transformer@transformdata.io
+  # redshift
+  sql_query: |
+    SELECT
+      n AS id_transformation
+      , CAST(1 + RANDOM()* 49 AS INT) AS id_bot
+      , CAST(1 + RANDOM()* 4 AS INT) AS id_type
+      , CAST(2 + RANDOM()* 10 AS INT) AS m_transforms
+      , CAST(ROUND(RANDOM(),0) AS INT) AS dim_is_visible
+      , ('2020-10-01'::date + MOD(n,20))::DATE AS ds
+    FROM (SELECT ROW_NUMBER() OVER () AS n FROM stl_scan LIMIT 100) AS n
+    LIMIT 100
+  identifiers:
+    - name: tranform
+      type: primary
+      expr: id_transformation
+    - name: bot
+      type: foreign
+      expr: id_bot
+    - name: type
+      type: foreign
+      expr: id_type
+
+  measures:
+    - name: transforms
+      description: The total number of transforms performed by the transformer bots.
+      expr: m_transforms
+      agg: sum
+    - name: visible_transforms
+      description: The total number of visible transforms performed by the transformer bots.
+      expr: CASE WHEN dim_is_visible THEN m_transforms ELSE 0 END
+      agg: sum
+
+  dimensions:
+    - name: ds
+      type: time
+    - name: is_visible
+      type: categorical
+      expr: dim_is_visible
+
+  mutability:
+    type: ds_append_only

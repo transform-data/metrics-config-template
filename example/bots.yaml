@@ -1,0 +1,38 @@
+version: v0.1
+data_source:
+  name: bots_dim
+  description: For each transformer bot, additional information about the bot.
+  owners:
+    - transformer@transformdata.io
+  # connection: myredshift
+  sql_query: |
+    SELECT
+      n AS id_bot
+      , TRANSLATE(CAST(CAST(RANDOM() * 100000 AS BIGINT) AS VARCHAR), '1234567890', 'abcdefghij') AS dim_bot_name
+      , CAST(ROUND(RANDOM(),0) AS INT) AS dim_is_evil
+      , ('2020-10-01'::date + MOD(n,20))::DATE AS ds
+    FROM (SELECT ROW_NUMBER() OVER () AS n FROM stl_scan LIMIT 50) AS n
+    LIMIT 50
+  identifiers:
+    - name: bot
+      type: primary
+      expr: id_bot
+
+  measures:
+    - name: bots
+      description: The total number of transformer bots.
+      expr: "1"
+      agg: sum
+
+  dimensions:
+    - name: ds
+      type: time
+    - name: bot_name
+      type: categorical
+      expr: dim_bot_name
+    - name: good_or_evil
+      type: categorical
+      expr: CASE WHEN dim_is_evil = 1 THEN 'evil' ELSE 'good' END
+
+  mutability:
+    type: ds_append_only
