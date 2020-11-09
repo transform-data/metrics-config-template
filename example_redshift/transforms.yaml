@@ -15,6 +15,7 @@ data_source:
       , ('2020-10-01'::date + MOD(n,20))::DATE AS ds
     FROM (SELECT ROW_NUMBER() OVER () AS n FROM stl_scan LIMIT 100) AS n
     LIMIT 100
+
   identifiers:
     - name: tranform
       type: primary

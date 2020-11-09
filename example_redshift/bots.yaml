@@ -34,5 +34,3 @@ data_source:
       type: categorical
       expr: CASE WHEN dim_is_evil = 1 THEN 'evil' ELSE 'good' END
 
-  mutability:
-    type: ds_append_only
