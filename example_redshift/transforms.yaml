@@ -8,13 +8,12 @@ data_source:
   sql_query: |
     SELECT
       n AS id_transformation 
-      , CAST(1 + MOD(n,50) AS INT) AS id_bot
-      , CAST(1 + MOD(n,4) AS INT) AS id_type
-      , CAST(LOG(4, 6)*MOD(n,30) AS INT) AS m_transforms
-      , CAST(ROUND(MOD(n,2)* 1.0/2,0) AS INT) AS dim_is_visible
-      , ('2020-10-01'::date + MOD(n,20))::DATE AS ds
+      , CAST(1 + MOD(n, 50) AS INT) AS id_bot
+      , CAST(1 + MOD(n, 4) AS INT) AS id_type
+      , CAST(LOG(4, 6) * MOD(n, 30) AS INT) AS m_transforms
+      , CAST(ROUND(MOD(n, 2)* 1.0 / 2, 0) AS INT) AS dim_is_visible
+      , ('2020-10-01'::DATE + MOD(n, 20))::DATE AS ds
     FROM (SELECT ROW_NUMBER() OVER () AS n FROM stl_scan LIMIT 100) AS n
-    LIMIT 100
 
   identifiers:
     - name: tranform
