@@ -9,7 +9,6 @@ data_source:
     SELECT
       n AS id_transformation 
       , CAST(1 + MOD(n, 50) AS INT) AS id_bot
-      , CAST(1 + MOD(n, 4) AS INT) AS id_type
       , CAST(LOG(4, 6) * MOD(n, 30) AS INT) AS m_transforms
       , CAST(ROUND(MOD(n, 2)* 1.0 / 2, 0) AS INT) AS dim_is_visible
       , ('2020-10-01'::DATE + MOD(n, 20))::DATE AS ds
@@ -22,9 +21,6 @@ data_source:
     - name: bot
       type: foreign
       expr: id_bot
-    - name: type
-      type: foreign
-      expr: id_type
 
   measures:
     - name: transforms
