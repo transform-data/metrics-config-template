@@ -4,7 +4,6 @@ data_source:
   description: For each transformer bot, additional information about the bot.
   owners:
     - transformer@transformdata.io
-  # connection: myredshift
   sql_query: |
     SELECT
       n AS id_bot

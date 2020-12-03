@@ -4,7 +4,6 @@ data_source:
   description: This table captures the number of transformations that the Transformer bots performed, starting in Oct 2020.
   owners:
     - transformer@transformdata.io
-  # redshift
   sql_query: |
     SELECT
       n AS id_transformation 
