@@ -7,8 +7,8 @@ data_source:
   sql_query: |
     SELECT
       n AS id_bot
-      , REGEXP_REPLACE(uuid(), '[^a-zA-Z]', '') AS dim_bot_name
-      , CAST(ROUND(RANDOM(),0) AS INT) AS dim_is_evil
+      , REGEXP_REPLACE(UUID(), '[^a-zA-Z]', '') AS bot_name
+      , CAST(ROUND(RANDOM(), 0) AS INT) AS is_evil
       , DATE_ADD('day', MOD(n, 20), CAST('2020-10-01' AS DATE)) AS ds
     FROM (SELECT ROW_NUMBER() OVER () AS n FROM information_schema.columns LIMIT 50) AS n
 
@@ -28,10 +28,9 @@ data_source:
       type: time
     - name: bot_name
       type: categorical
-      expr: dim_bot_name
     - name: good_or_evil
       type: categorical
-      expr: CASE WHEN dim_is_evil = 1 THEN 'evil' ELSE 'good' END
+      expr: CASE WHEN is_evil = 1 THEN 'evil' ELSE 'good' END
 
   mutability:
     type: ds_append_only

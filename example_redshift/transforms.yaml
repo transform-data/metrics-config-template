@@ -9,8 +9,8 @@ data_source:
       n AS id_transformation
       , CAST(1 + RANDOM()* 49 AS INT) AS id_bot
       , CAST(2 + RANDOM()* 10 AS INT) AS m_transforms
-      , CAST(ROUND(RANDOM(),0) AS INT) AS dim_is_visible
-      , ('2020-10-01'::date + MOD(n,20))::DATE AS ds
+      , CAST(ROUND(RANDOM(), 0) AS INT) AS dim_is_visible
+      , ('2020-10-01'::date + MOD(n, 20))::DATE AS ds
     FROM (SELECT ROW_NUMBER() OVER () AS n FROM stl_scan LIMIT 100) AS n
 
   identifiers:
