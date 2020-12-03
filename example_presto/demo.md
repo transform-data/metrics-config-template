@@ -34,7 +34,6 @@ References a global registry of metrics and dimensions with automatic joining. T
 mql query --metrics '[transforms]' --dimensions '[ds]' --cache_mode=''
 mql query --metrics '[transforms]' --dimensions '[ds, is_visible]' --cache_mode=''
 ```
-* not returning in ds order
 
 ### Constraints
 
@@ -47,7 +46,6 @@ mql query --metrics '[transforms]' --dimensions '[ds]' --constraint '{"ds": "202
 ```shell
 mql query --metrics '[transforms, visible_transforms]' --dimensions '[ds, "bot/good_or_evil"]' --constraint '{"ds": "2020-10-05"}' --cache_mode=''
 ```
-* this breaks
 
 ## Dynamic Caching
 
