@@ -8,10 +8,10 @@ data_source:
   sql_query: |
     SELECT
       n AS id_bot
-      , TRANSLATE(CAST(CAST(RANDOM() * 100000 AS BIGINT) AS VARCHAR), '1234567890', 'abcdefghij') AS dim_bot_name
+      , REGEXP_REPLACE(uuid(), '[^a-zA-Z]', '') AS dim_bot_name
       , CAST(ROUND(RANDOM(),0) AS INT) AS dim_is_evil
-      , ('2020-10-01'::date + MOD(n,20))::DATE AS ds
-    FROM (SELECT ROW_NUMBER() OVER () AS n FROM stl_scan LIMIT 50) AS n
+      , DATE_ADD('day', MOD(n, 20), CAST('2020-10-01' AS DATE)) AS ds
+    FROM (SELECT ROW_NUMBER() OVER () AS n FROM information_schema.columns LIMIT 50) AS n
 
   identifiers:
     - name: bot

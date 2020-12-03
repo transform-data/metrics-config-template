@@ -1,8 +1,0 @@
-dialect:
-host:
-port:
-database:
-username:
-transform_schema: # which schema should we use as a db cache
-password:
-# TODO this configuration file is provisional
