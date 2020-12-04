@@ -35,7 +35,7 @@ metric:
 version: v0.1
 metric:
   name: bots_w_visible_transforms
-  description: The product of total visible_transforms and total bots.
+  description: The number of bots with visible transforms.
   owners:
     - belinda@transformdata.io
   display_name: Bots with Visible Transforms
