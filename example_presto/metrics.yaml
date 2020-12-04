@@ -31,3 +31,18 @@ metric:
   type: measure_proxy
   type_params:
     measure: bots
+---
+version: v0.1
+metric:
+  name: transforms_per_bot
+  description: The total number of transforms per bot.
+  owners:
+    - belinda@transformdata.io
+  display_name: Transforms per Bot
+  type: expr
+  type_params:
+    expr: transforms * 1.0 / bots
+    measures: 
+        - transforms
+        - bots
+  tier: "2"

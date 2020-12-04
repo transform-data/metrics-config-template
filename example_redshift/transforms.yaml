@@ -9,7 +9,7 @@ data_source:
       n AS id_transformation
       , CAST(1 + ROUND((n-1)/2, 0) AS INT) AS id_bot
       , CAST(2 + n*7 AS INT) AS m_transforms
-      , CAST(ROUND(MOD(n, 2), 0) AS INT) AS dim_is_visible
+      , CAST(ROUND(MOD(n, 2), 0) AS INT) AS is_visible
       , ('2020-10-01'::date + MOD(n, 20))::DATE AS ds
     FROM (SELECT ROW_NUMBER() OVER () AS n FROM stl_scan LIMIT 100) AS n
 
@@ -28,7 +28,7 @@ data_source:
       agg: sum
     - name: visible_transforms
       description: The total number of visible transforms performed by the transformer bots.
-      expr: CASE WHEN dim_is_visible THEN m_transforms ELSE 0 END
+      expr: CASE WHEN is_visible THEN m_transforms ELSE 0 END
       agg: sum
 
   dimensions:
@@ -36,7 +36,6 @@ data_source:
       type: time
     - name: is_visible
       type: categorical
-      expr: dim_is_visible
 
   mutability:
     type: ds_append_only

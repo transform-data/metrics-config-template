@@ -109,7 +109,7 @@ data_source:
     (98, 27, 25, 1, '2020-10-19'),
     (99, 48, 230, 0, '2020-10-20'),
     (100, 20, 134, 1, '2020-10-01')
-    ) AS t (id_transformation, id_bot, m_transforms, dim_is_visible, ds)
+    ) AS t (id_transformation, id_bot, m_transforms, is_visible, ds)
 
   identifiers:
     - name: tranform
@@ -126,7 +126,7 @@ data_source:
       agg: sum
     - name: visible_transforms
       description: The total number of visible transforms performed by the transformer bots.
-      expr: CASE WHEN dim_is_visible THEN m_transforms ELSE 0 END
+      expr: CASE WHEN is_visible THEN m_transforms ELSE 0 END
       agg: sum
 
   dimensions:
@@ -134,7 +134,6 @@ data_source:
       type: time
     - name: is_visible
       type: categorical
-      expr: dim_is_visible
 
   mutability:
     type: ds_append_only
