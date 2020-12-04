@@ -2,14 +2,6 @@
 
 Setup
 
-Configs will be read from `$TRANSFORM_HOME` (default: `~/transform`), add
-`export TRANSFORM_HOME=path/to/your/location` to set a custom home
-
-<!-- ```sql
--- clean the "additional data" from source tables
-DELETE FROM demo_small.dim_matches WHERE ds = '2020-01-01';
-``` -->
-
 ```shell
 mql drop_cache --im_sure  #drop any tables in the cache
 ```
