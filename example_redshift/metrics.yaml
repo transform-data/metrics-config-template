@@ -24,7 +24,7 @@ metric:
 version: v0.1
 metric:
   name: bots
-  description: The total number of transforms per bot.
+  description: The total number of transformer bots.
   owners:
     - belinda@transformdata.io
   display_name: Transformer Bots
