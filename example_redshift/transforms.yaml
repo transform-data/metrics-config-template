@@ -28,7 +28,7 @@ data_source:
       agg: sum
     - name: visible_transforms
       description: The total number of visible transforms performed by the transformer bots.
-      expr: CASE WHEN is_visible THEN m_transforms ELSE 0 END
+      expr: CASE WHEN is_visible = 1 THEN m_transforms ELSE 0 END
       agg: sum
 
   dimensions:
