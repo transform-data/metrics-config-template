@@ -1,0 +1,43 @@
+version: v0.1
+data_source:
+  name: transforms_fct
+  description: This table captures the number of transformations that the Transformer bots performed, starting in Oct 2020.
+  owners:
+    - transformer@transformdata.io
+  sql_query: |
+    SELECT
+      n AS id_transformation
+      , CAST(1 + ROUND((n-1)/2, 0) AS INT) AS id_bot
+      , CAST(2 + n*7 AS INT) AS m_transforms
+      , CAST(ROUND(MOD(n, 2), 0) AS INT) AS is_visible
+      , DATE((DATE('2020-10-01') + MOD(n, 20))) AS ds
+    FROM (SELECT ROW_NUMBER() OVER(ORDER BY SEQ4()) AS n
+          FROM TABLE(GENERATOR(ROWCOUNT => 100))
+         ) AS t
+
+  identifiers:
+    - name: tranform
+      type: primary
+      expr: id_transformation
+    - name: bot
+      type: foreign
+      expr: id_bot
+
+  measures:
+    - name: transforms
+      description: The total number of transforms performed by the transformer bots.
+      expr: m_transforms
+      agg: sum
+    - name: visible_transforms
+      description: The total number of visible transforms performed by the transformer bots.
+      expr: CASE WHEN is_visible = 1 THEN m_transforms ELSE 0 END
+      agg: sum
+
+  dimensions:
+    - name: ds
+      type: time
+    - name: is_visible
+      type: categorical
+
+  mutability:
+    type: ds_append_only
