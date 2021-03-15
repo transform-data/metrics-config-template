@@ -11,7 +11,7 @@ data_source:
       , CAST(ROUND(MOD(n, 2), 0) AS INT) AS is_evil
       , DATE((DATE('2020-10-01') + MOD(n, 20))) AS ds
     FROM (  SELECT ROW_NUMBER() OVER(ORDER BY SEQ4()) AS n
-            FROM TABLE(GENERATOR(ROWCOUNT => 10))
+            FROM TABLE(GENERATOR(ROWCOUNT => 50))
          ) AS t
 
   identifiers:
