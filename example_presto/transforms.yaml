@@ -1,4 +1,3 @@
-# For each measure souce and dimension source, you will create a configuration yaml in your Transform repository
 version: v0.1
 data_source:
   name: transforms_fct
