@@ -1,0 +1,48 @@
+---
+version: v0.1
+metric:
+  name: transforms
+  description: The total number of transforms performed by the transformer bots.
+  owners:
+    - belinda@transformdata.io
+  display_name: Bot Transforms
+  type: measure_proxy
+  type_params:
+    measure: transforms
+---
+version: v0.1
+metric:
+  name: visible_transforms
+  description: The total number of visible transforms performed by the transformer bots.
+  owners:
+    - belinda@transformdata.io
+  display_name: Visible Bot Transforms
+  type: measure_proxy
+  type_params:
+    measure: visible_transforms
+---
+version: v0.1
+metric:
+  name: bots
+  description: The total number of transformer bots.
+  owners:
+    - belinda@transformdata.io
+  display_name: Transformer Bots
+  type: measure_proxy
+  type_params:
+    measure: bots
+---
+version: v0.1
+metric:
+  name: bots_w_visible_transforms
+  description: The number of bots with visible transforms.
+  owners:
+    - belinda@transformdata.io
+  display_name: Bots with Visible Transforms
+  type: expr
+  type_params:
+    expr: CASE WHEN visible_transforms > 0 THEN bots END
+    measures: 
+        - visible_transforms
+        - bots
+  tier: "2"
