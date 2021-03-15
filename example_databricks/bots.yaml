@@ -6,13 +6,11 @@ data_source:
     - transformer@transformdata.io
   sql_query: |
     SELECT
-      n AS id_bot
-      , TRANSLATE(CAST(CAST(n * 1234567 AS BIGINT) AS VARCHAR), '1234567890', 'abcdefghij') AS bot_name
-      , CAST(ROUND(MOD(n, 2), 0) AS INT) AS is_evil
-      , DATE((DATE('2020-10-01') + MOD(n, 20))) AS ds
-    FROM (  SELECT ROW_NUMBER() OVER(ORDER BY SEQ4()) AS n
-            FROM TABLE(GENERATOR(ROWCOUNT => 50))
-         ) AS t
+      id AS id_bot
+      , TRANSLATE(CAST(CAST(id * 1234567 AS BIGINT) AS STRING), '1234567890', 'abcdefghij') AS bot_name
+      , CAST(ROUND(MOD(id, 2), 0) AS INT) AS is_evil
+      , TO_DATE('2020-10-01') + INT(MOD(id, 20)) AS ds
+    FROM RANGE(0,50)
 
   identifiers:
     - name: bot
