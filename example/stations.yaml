@@ -1,0 +1,31 @@
+version: v0.1
+data_source:
+  name: stations_dim
+  description: source of truth for all weather stations
+  owners:
+    - support@transformdata.io
+  sql_query: |
+      SELECT
+        's98356237'           AS id_station
+        , 'gauge'             AS method
+      UNION ALL SELECT 's59936436', 'radar'
+      UNION ALL SELECT 's04558016', 'gauge'
+
+
+  identifiers:
+    - name: station
+      type: primary
+      expr: id_station
+
+  measures:
+    - name: stations
+      expr: "1"
+      agg: sum
+
+  dimensions:
+    - name: method
+      description: measurement methodology
+      type: categorical
+
+  mutability:
+    type: immutable
