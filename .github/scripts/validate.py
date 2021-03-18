@@ -17,6 +17,7 @@ else:
 
 COMMIT = os.getenv("GITHUB_SHA")
 TRANSFORM_API_KEY = os.getenv("TRANSFORM_API_KEY")
+TRANSFORM_CONFIG_DIR = os.getenv("TRANSFORM_CONFIG_DIR")
 
 def read_config_files(config_dir):
     """Read yaml files from config_dir. Returns (file name, file contents) per file in dir"""
@@ -37,7 +38,7 @@ def read_config_files(config_dir):
 
     return results
 
-yaml_files = read_config_files(".")
+yaml_files = read_config_files(TRANSFORM_CONFIG_DIR or ".")
 results = {'yaml_files': yaml_files}
 print(f"Files to upload: {yaml_files.keys()}")
 headers = {'Content-Type': 'application/json', 'Authorization': f'X-Api-Key {TRANSFORM_API_KEY}'}
