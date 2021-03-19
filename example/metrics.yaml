@@ -26,10 +26,10 @@ metric:
 version: v0.1
 metric:
   name: stations
-  description: Weather Stations
+  description: New Weather Stations
   owners:
     - support@transformdata.io
   display_name: Stations 📡
   type: measure_proxy
   type_params:
-    measure: stations
+    measure: new_stations
