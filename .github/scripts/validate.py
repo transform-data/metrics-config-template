@@ -21,6 +21,7 @@ TRANSFORM_CONFIG_DIR = os.getenv("TRANSFORM_CONFIG_DIR")
 
 def read_config_files(config_dir):
     """Read yaml files from config_dir. Returns (file name, file contents) per file in dir"""
+    config_dir = "./" + config_dir
     assert os.path.exists(config_dir), f"User-specified config dir ({config_dir}) does not exist"
 
     results = {}
