@@ -14,9 +14,9 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests
+          pip install transform_tools
       - name: Run commit script
-        run: python ./.github/scripts/validate.py commit
+        run: python -m transform_tools.validate commit
         env:
           TRANSFORM_CONFIG_DIR: ${{ secrets.TRANSFORM_CONFIG_DIR }} # TRANSFORM_CONFIG_DIR may be added to  repo secrets settings (repo-root is used otherwise)
           TRANSFORM_API_URL: ${{ secrets.TRANSFORM_API_URL }} # TRANSFORM_API_URL must be in repo secrets settings (or should we hardcode?)
