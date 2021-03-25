@@ -1,0 +1,35 @@
+---
+version: v0.1
+metric:
+  name: rainfall
+  description: Accumulated Rainfall
+  owners:
+    - support@transformdata.io
+  display_name: Rainfall 🌧
+  type: measure_proxy
+  type_params:
+    measure: rainfall
+---
+version: v0.1
+metric:
+  name: nontrace_rainfall
+  description: Accumulated Rainfall (non-trace)
+  owners:
+    - support@transformdata.io
+  display_name: Rainfall 🌧 (non-trace)
+  type: measure_proxy
+  constraint: |
+    NOT is_trace
+  type_params:
+    measure: rainfall
+---
+version: v0.1
+metric:
+  name: stations
+  description: New Weather Stations
+  owners:
+    - support@transformdata.io
+  display_name: Stations 📡
+  type: measure_proxy
+  type_params:
+    measure: new_stations
