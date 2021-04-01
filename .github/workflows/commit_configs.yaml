@@ -1,11 +1,21 @@
 name: Commit Configs
 on:
   push:
-    branches: [main, master]
+    branches: [master, main]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            config_dir_src:
+              - ${{ secrets.TRANSFORM_CONFIG_DIR }}/**.yaml
+              - ${{ secrets.TRANSFORM_CONFIG_DIR }}/**.yml
+            default_src:
+              - ./**.yaml
+              - ./**.yml
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
@@ -15,11 +25,27 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install transform_tools
-      - name: Run commit script
-        run: python -m transform_tools.validate commit
+      - name: Run commit script if config dir is not set
+        if: steps.filter.outputs.default_src == 'true'
+        run: |
+          if [[ -z "${TRANSFORM_CONFIG_DIR}" ]]; then
+            python -m transform_tools.validate commit
+          else
+            echo 'Config dir set. Not running'
+          fi
         env:
-          TRANSFORM_CONFIG_DIR: ${{ secrets.TRANSFORM_CONFIG_DIR }} # TRANSFORM_CONFIG_DIR may be added to  repo secrets settings (repo-root is used otherwise)
-          TRANSFORM_API_URL: ${{ secrets.TRANSFORM_API_URL }} # TRANSFORM_API_URL must be in repo secrets settings (or should we hardcode?)
+          TRANSFORM_CONFIG_DIR: ${{ secrets.TRANSFORM_CONFIG_DIR }}
+          TRANSFORM_API_KEY: ${{ secrets.TRANSFORM_API_KEY }}
+          TRANSFORM_API_URL: ${{ secrets.TRANSFORM_API_URL }}
           REPO: ${{ github.repository }}
-          TRANSFORM_API_KEY: ${{ secrets.TRANSFORM_API_KEY }} # TRANSFORM_API_KEY must be in repo secrets settings
- 
+
+      - name: Run commit script config dir is set and has changed
+        if: steps.filter.outputs.config_dir_src == 'true'
+        run: |
+          python -m transform_tools.validate commit
+          echo 'Successfully committed configs'
+        env:
+          TRANSFORM_CONFIG_DIR: ${{ secrets.TRANSFORM_CONFIG_DIR }}
+          TRANSFORM_API_KEY: ${{ secrets.TRANSFORM_API_KEY }}
+          TRANSFORM_API_URL: ${{ secrets.TRANSFORM_API_URL }}
+          REPO: ${{ github.repository }}
