@@ -3,10 +3,10 @@
 # After you've defined the data source(s) you can define the metrics in the same file, or in a different .YAML file.
 
 ## There are three types of metrics. 
-   # - measure_proxy: This proxies the measure you've defined :)! If you've defined create_metric: true in the data source, 
-   #                  this is the type of metric created.
-   # - ratio: Divides two measures. You'll specify which is the numerator and which is the denominator.
-   # - expr: Allows you to pass in any valid SQL expression
+#    - measure_proxy: This proxies the measure you've defined :)! If you've defined create_metric: true in the data source, 
+#                  this is the type of metric created.
+#    - ratio: Divides two measures. You'll specify which is the numerator and which is the denominator.
+#    - expr: Allows you to pass in any valid SQL expression
 #---  # triple '-' is so that metric definitions are treated as separate YAML documents
 #metric:
 #  name: metric_name # enter in the name of the metric
@@ -21,7 +21,7 @@
 #  tier: "x" # define the relative importance of the metric. Options are 1,2,3 in order of most-least visible or important.
 #---
 #metric:
-#  name: metric_name ## enter in the name of the metric
+#  name: metric_name # enter in the name of the metric
 #  description:  |
 #    Multiple line user-friendly description of the metric
 #    Because sometimes more description is required.
