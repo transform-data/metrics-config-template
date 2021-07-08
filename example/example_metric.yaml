@@ -9,7 +9,7 @@
    ##                  this is the type of metric created.
    ## - ratio: Divides two measures. You'll specify which is the numerator and which is the denominator.
    ## - expr: Allows you to pass in any valid SQL expression
-#--- 
+#---  # this is required so that metric definitions are treated as separate YAML documents
 # triple '-' is required between metrics for YAML to Parse them.
 #metric:
 #  name: metric_name ## enter in the name of the metric
