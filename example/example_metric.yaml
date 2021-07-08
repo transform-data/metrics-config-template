@@ -1,0 +1,38 @@
+
+## --- METRICS ---
+# After you've defined the data source(s) you can define the metrics in the same file, or in a different .YAML file.
+
+## There are three types of metrics. 
+#    - measure_proxy: This proxies the measure you've defined :)! If you've defined create_metric: true in the data source, 
+#                  this is the type of metric created.
+#    - ratio: Divides two measures. You'll specify which is the numerator and which is the denominator.
+#    - expr: Allows you to pass in any valid SQL expression
+#---  # triple '-' is so that metric definitions are treated as separate YAML documents
+#metric:
+#  name: metric_name # enter in the name of the metric
+#  description: Single line user-friendly description of the metric
+#  owners: # A single or list of owners. We recommend team ownership
+#    - owner@metricowner.com 
+#  display_name: Display Name # How you want the metric to appear in the Transform UI
+#  type: ratio # Ratio metrics divide two measures. The two measures must share common dimensions
+#  type_params:
+#    numerator: name_of_numerator_measure
+#    denominator: name_of_denominator_measure
+#  tier: "x" # define the relative importance of the metric. Options are 1,2,3 in order of most-least visible or important.
+#---
+#metric:
+#  name: metric_name # enter in the name of the metric
+#  description:  |
+#    Multiple line user-friendly description of the metric
+#    Because sometimes more description is required.
+#  owners: # single or list of owners.
+#    - metricowner@metricowner.com
+#  display_name: Display Name of Metric
+#  type: expr
+#  type_params:
+#    expr: # any valid SQL Expression. For Example: x - y + z
+#    measures: # the measures used in the expression need to be called out explicitly
+#      - x
+#      - y
+#      - z
+#  tier: "x"

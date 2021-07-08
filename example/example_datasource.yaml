@@ -1,0 +1,74 @@
+## --- DATA SOURCE METADATA ---
+# This section includes metadata on the data source.
+# data_source:
+#  name: data_source_name # This should be unique across all your data sources.
+#  description: My description # Your data source description. 
+#  owners:  # A single or list of multiple owners.
+#    - owner_email1@company.com
+#  sql_table: schema.table # The table name in your data warehouse. 
+#  #sql_query: <your query here> Use 'sql_query' for a query in place of sql_table.
+
+## --- IDENTIFIERS ---
+#   Define the key columns of your table that can be used to join with other data sources.
+#   Keys can be referenced directly by column name or altered using an expr.
+
+#  identifiers: # Below shows all types:foreign, primary, & unique.
+#    - name: primary_id_name # Name you want to appear in Transform tables
+#      type: primary # Primary key of the table
+#      expr: primary_col_name # Column name of the identifier defined in your db.
+#   - name: foreign_id_name # Name you want to appear in Transform tables
+#      type: foreign # foreign_identifiers function like foreign keys
+#      expr: foreign_col_name # Column name of the identifier defined in your db.
+#    - name: unique_id_name # Name you want to appear in Transform tables
+#      type: unique # unique values. This changes the join type performed by Transform to    
+#                    allow left joins of this colum. 
+#      expr: unique_column_name # Column name of the identifier defined in your db. 
+#    - name: identifier_column_name # No expr is required if you pass in the column name directly
+#      type: primary
+
+## --- MEASURES --- 
+#   Define measures used to calculate aggregations of columns in your data source.
+#   Measure can reference a DB column or derived using a SQL expression (CASE)
+
+# measures: # We provide examples of measures that are column names & expressions
+#    - name: measure_column_name # The column name of your measure in your data warehouse
+#      description: My measure description # An optional description of your measure
+#			expr: # Column name of the field defined in your DB.
+#      agg: sum # Aggregation of measure:one of sum,avg,min,max,count_distinct,boolean
+#			create_metric: true # Automatically create a metric out of this measure!
+#      create_metric_display_name: Metric name # The named that will be displayed in the Transform UI.
+#    - name: measure_name_with_expression
+#      description: My measures description 
+#      expr: CASE WHEN 1=1 THEN 1 ELSE 0 END # SQL CASE stmt or "1" if you want to count values
+#      agg: sum
+
+## --- DIMENSIONS ---
+#   Define dimensions from your data source - ex: names, dates, or geographical data
+#   Provides the ability to slice metric by a given dimensions 
+#   Dimensions can be categorical or time-based
+#   Dimensions can reference a column or derived via SQL expression. 
+
+#  dimensions: # Examples time dimension and categorical dimensions w/ and w/o expr's
+#	  - name: ds # Name should be consistent across your data sources.
+#	    type: time # This will always be time for time dimensions
+#			type_params:
+#				is_primary: # true or false 
+#				time_format: # currently only YYYY-MM-DD is supported
+#				time_granularity: # currently only day is supported
+#	  - name: categorical_dim_column_name # The name of the column
+#	    type: categorical # This will always be categorical for categorical dimensions
+#	  - name: categorical_dim_name_with_expression 
+#	    type: categorical 
+#	    expr: CASE when 1=1 THEN "Test" ELSE 0 # A SQL expression defining the dimension value
+
+## -- MUTABILITY -- 
+#   Define the appropriate mutability for this data source
+#   Mutability refers to how the data underlying this configuration changes
+#   Immutable means underlying data never or very rarely changes.
+#   Full_mutuation means underlying data changes frequently.
+#   Append_only means underlying data acts as an append-only log or fact table
+#   Ds_append_only will append only if the ds time dimension has new rows
+
+#  mutability:
+#     type: immutable # choices: immutable, full_mutation, append_only, and ds_append_only
+
