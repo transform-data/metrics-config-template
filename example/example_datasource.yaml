@@ -9,26 +9,26 @@
 #  #sql_query: <your query here> Use 'sql_query' for a query in place of sql_table.
 
 ## --- IDENTIFIERS ---
-  # Define the key columns of your table that can be used to join with other data sources.
-  # Keys can be referenced directly by column name or altered using an expr.
+#   Define the key columns of your table that can be used to join with other data sources.
+#   Keys can be referenced directly by column name or altered using an expr.
 
 #  identifiers: # Below shows all types:foreign, primary, & unique.
 #    - name: primary_id_name # Name you want to appear in Transform tables
 #      type: primary # Primary key of the table
 #      expr: primary_col_name # Column name of the identifier defined in your db.
 #   - name: foreign_id_name # Name you want to appear in Transform tables
-#      type: foreign ## foreign_identifiers function like foreign keys
+#      type: foreign # foreign_identifiers function like foreign keys
 #      expr: foreign_col_name # Column name of the identifier defined in your db.
 #    - name: unique_id_name # Name you want to appear in Transform tables
 #      type: unique # unique values. This changes the join type performed by Transform to    
-                   # allow left joins of this colum. 
-#      expr: unique_column_name ## Column name of the identifier defined in your db. 
-#    - name: identifier_column_name ## No expr is required if you pass in the column name directly
+#                    allow left joins of this colum. 
+#      expr: unique_column_name # Column name of the identifier defined in your db. 
+#    - name: identifier_column_name # No expr is required if you pass in the column name directly
 #      type: primary
 
 ## --- MEASURES --- 
-  # Define measures used to calculate aggregations of columns in your data source.
-  # Measure can reference a DB column or derived using a SQL expression (CASE)
+#   Define measures used to calculate aggregations of columns in your data source.
+#   Measure can reference a DB column or derived using a SQL expression (CASE)
 
 # measures: # We provide examples of measures that are column names & expressions
 #    - name: measure_column_name # The column name of your measure in your data warehouse
@@ -39,14 +39,14 @@
 #      create_metric_display_name: Metric name # The named that will be displayed in the Transform UI.
 #    - name: measure_name_with_expression
 #      description: My measures description 
-#      expr: CASE WHEN 1=1 THEN 1 ELSE 0 END ## SQL CASE stmt or "1" if you want to count values
+#      expr: CASE WHEN 1=1 THEN 1 ELSE 0 END # SQL CASE stmt or "1" if you want to count values
 #      agg: sum
 
 ## --- DIMENSIONS ---
-  # Define dimensions from your data source - ex: names, dates, or geographical data
-  # Provides the ability to slice metric by a given dimensions 
-  # Dimensions can be categorical or time-based
-  # Dimensions can reference a column or derived via SQL expression. 
+#   Define dimensions from your data source - ex: names, dates, or geographical data
+#   Provides the ability to slice metric by a given dimensions 
+#   Dimensions can be categorical or time-based
+#   Dimensions can reference a column or derived via SQL expression. 
 
 #  dimensions: # Examples time dimension and categorical dimensions w/ and w/o expr's
 #	  - name: ds # Name should be consistent across your data sources.
@@ -62,12 +62,12 @@
 #	    expr: CASE when 1=1 THEN "Test" ELSE 0 # A SQL expression defining the dimension value
 
 ## -- MUTABILITY -- 
-  # Define the appropriate mutability for this data source
-  # Mutability refers to how the data underlying this configuration changes
-  # Immutable means underlying data never or very rarely changes.
-  # Full_mutuation means underlying data changes frequently.
-  # Append_only means underlying data acts as an append-only log or fact table
-  # Ds_append_only will append only if the ds time dimension has new rows
+#   Define the appropriate mutability for this data source
+#   Mutability refers to how the data underlying this configuration changes
+#   Immutable means underlying data never or very rarely changes.
+#   Full_mutuation means underlying data changes frequently.
+#   Append_only means underlying data acts as an append-only log or fact table
+#   Ds_append_only will append only if the ds time dimension has new rows
 
 #  mutability:
 #     type: immutable # choices: immutable, full_mutation, append_only, and ds_append_only
