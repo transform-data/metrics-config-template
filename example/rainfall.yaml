@@ -32,6 +32,10 @@ data_source:
   dimensions:
     - name: ds
       type: time
+      type_params:
+        is_primary: True
+        time_format: YYYY-MM-DD
+        time_granularity: day
     - name: is_trace
       type: categorical
       expr: CASE WHEN m_rainfall = 0.001 THEN TRUE ELSE FALSE END
