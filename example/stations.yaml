@@ -24,8 +24,12 @@ data_source:
 
   dimensions:
     - name: ds
-      description: Time station was created
       type: time
+      expr: DATE_TRUNC('day', created_at)
+      type_params:
+        is_primary: True
+        time_format: YYYY-MM-DD
+        time_granularity: day
     - name: method
       description: measurement methodology
       type: categorical
