@@ -5,7 +5,7 @@
 #  description: My description # Your data source description. 
 #  owners:  # A single or list of multiple owners. Create owners in a list with '-' regardless of one or many owners.
 #    - owner_email1@company.com 
-#    - owner_email2@company.com. 
+#    - owner_email2@company.com 
 #  sql_table: schema.table # The table name in your data warehouse. 
 #  #sql_query: <your query here> Use 'sql_query' for a query in place of sql_table.
 
