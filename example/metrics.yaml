@@ -1,9 +1,10 @@
----
 #Measure Proxy - if you've defined the metrics with the create_metric: true parameter passed, you don't need to create measure proxies unless you want to include a constraint.
 metric: # This section includes metadata on metrics.
   name: cancellations # Define the reference name of the metric. This name must be unique amongst metrics and can include lowercase letters, numbers and underscores. 
-											# This name is used to call the metric from the Transform API.
-  description:  | # Provide a detailed description of the metric. This description is surfaced in the main “definition” section of the metric page in the Transform UI.
+                      # This name is used to call the metric from the Transform API.
+  
+  # Provide a detailed description of the metric. This description is surfaced in the main “definition” section of the metric page in the Transform UI.
+  description: | 
     Cancellations (USD) is the volume of cancellations expressed in USD.
   owners: # Define the list of owners of this metric. This owner is displayed in the “ownership” features of the UI and connects to the user’s Transform login. 
           # For now, this should be the user’s email address.
@@ -17,7 +18,7 @@ metric: # This section includes metadata on metrics.
 # Ratio Metric
 metric:
   name: cancellation_rate
-  description:  |
+  description: | 
     Cancellation rate is the ratio of cancellations over transaction
     amount from a given time period expressed in USD.
   owners:
@@ -32,7 +33,7 @@ metric:
 # Expression Metric
 metric:
   name: revenue_usd
-  description:  |
+  description: | 
     Revenue (USD) is the income generated from normal business
     operations net of cancellations and alterations, expressed in
     USD.
@@ -50,10 +51,14 @@ metric:
 ---
 # Metric with a constraint (Think of this like a 'where' clause)
 metric:
-	name: cancellations_in_mexico
-	description:
-	type: measure_proxy 
-	type_params:
-	  measure: cancellations_usd
-	constraint: | 
-	  customer__country = "MX"
+  name: cancellations_in_mexico
+  description: | 
+    Cancellations in Mexico (USD) is the volume of cancellations expressed in USD for customers in Mexico.
+  owners:
+    - support@transformdata.io
+  display_name: Cancellations in Mexico (USD)
+  type: measure_proxy 
+  type_params:
+    measure: cancellations_usd
+  constraint: |
+    customer__country = 'MX'

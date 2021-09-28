@@ -1,4 +1,3 @@
-version: v0.1
 data_source:
   name: customer_dim
   description: Location and description of all customers
@@ -27,7 +26,6 @@ data_source:
   dimensions:
     - name: ds
       type: time
-      expr: DATE_TRUNC('day', created_at)
       type_params:
         is_primary: True
         time_format: YYYY-MM-DD

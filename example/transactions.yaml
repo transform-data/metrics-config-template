@@ -1,7 +1,9 @@
 data_source: # This section includes metadata on the data source and the source definition.
   name: transactions # Define the name of the source. This name can be updated in the future.
-  description: | # Provide a detailed description of the data source here and include any important details. Other configuration contributors will primarily use this description. 
-								 # It is only surfaced in the UI under the lineage view on the metric page.
+  
+  # Provide a detailed description of the data source here and include any important details. Other configuration contributors will primarily use this description. 
+  # It is only surfaced in the UI under the lineage view on the metric page.
+  description: |
     This table captures every transaction starting July 
     02, 2014. Each row represents one transaction. There
     will be a new row for any cancellations or alterations. 
@@ -95,7 +97,7 @@ data_source: # This section includes metadata on the data source and the source 
         time_granularity: day
     - name: is_large
       type: categorical
-      expr: CASE WHEN m_amount_usd >= 30 THEN TRUE ELSE FALSE END
+      expr: CASE WHEN transaction_amount_usd >= 30 THEN TRUE ELSE FALSE END
     - name: quick_buy_transaction
       type: categorical
       expr: |
