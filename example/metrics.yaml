@@ -1,35 +1,59 @@
 ---
-version: v0.1
-metric:
-  name: rainfall
-  description: Accumulated Rainfall
-  owners:
+#Measure Proxy - if you've defined the metrics with the create_metric: true parameter passed, you don't need to create measure proxies unless you want to include a constraint.
+metric: # This section includes metadata on metrics.
+  name: cancellations # Define the reference name of the metric. This name must be unique amongst metrics and can include lowercase letters, numbers and underscores. 
+											# This name is used to call the metric from the Transform API.
+  description:  | # Provide a detailed description of the metric. This description is surfaced in the main “definition” section of the metric page in the Transform UI.
+    Cancellations (USD) is the volume of cancellations expressed in USD.
+  owners: # Define the list of owners of this metric. This owner is displayed in the “ownership” features of the UI and connects to the user’s Transform login. 
+          # For now, this should be the user’s email address.
     - support@transformdata.io
-  display_name: Rainfall 🌧
-  type: measure_proxy
+  display_name: Cancellations (USD) # Display name is displayed in the Transform UI, can include emojis. 
+  type: measure_proxy # Measure_proxies are pointers to a measure you created in a data source
   type_params:
-    measure: rainfall
+    measure: cancellations_usd # The measure you are creating a proxy of.
+  tier: "1" # importance tier which is displayed in the UI.
 ---
-version: v0.1
+# Ratio Metric
 metric:
-  name: nontrace_rainfall
-  description: Accumulated Rainfall (non-trace)
+  name: cancellation_rate
+  description:  |
+    Cancellation rate is the ratio of cancellations over transaction
+    amount from a given time period expressed in USD.
   owners:
     - support@transformdata.io
-  display_name: Rainfall 🌧 (non-trace)
-  type: measure_proxy
-  constraint: |
-    NOT is_trace
+  display_name: Cancellation Rate
+  type: ratio # Ratio metrics create a ratio out of two measures. Define the measures from the data source as numerator or denominator
   type_params:
-    measure: rainfall
+    numerator: cancellations_usd
+    denominator: transaction_amount_usd
+  tier: "2"
 ---
-version: v0.1
+# Expression Metric
 metric:
-  name: stations
-  description: New Weather Stations
+  name: revenue_usd
+  description:  |
+    Revenue (USD) is the income generated from normal business
+    operations net of cancellations and alterations, expressed in
+    USD.
   owners:
     - support@transformdata.io
-  display_name: Stations 📡
-  type: measure_proxy
+  display_name: Revenue (USD)
+  type: expr # Expression metrics allow you to pass in any valid SQL expression. Define all of the measures used in the metric in the "measures" field.
   type_params:
-    measure: new_stations
+    expr: transaction_amount_usd - cancellations_usd + alterations_usd
+    measures:
+      - transaction_amount_usd
+      - cancellations_usd
+      - alterations_usd
+  tier: "1"
+---
+# Metric with a constraint (Think of this like a 'where' clause)
+metric:
+	name: cancellations_in_mexico
+	description:
+	type: measure_proxy 
+	type_params:
+	  measure: cancellations_usd
+	constraint: | 
+	  customer__country = "MX"
