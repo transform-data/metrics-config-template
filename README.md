@@ -25,3 +25,28 @@ To authenticate to Transform using the CLI, have your Transform API key handy
 ```
 mql setup
 ```
+
+## MQL CLI Example
+List all metrics available:
+```
+mql list-metrics
+```
+
+Run the `revenue_usd` metric by day:
+```
+mql query --metrics revenue_usd --dimensions ds
+```
+
+Change the output to be odered by decending day:
+```
+mql query --metrics revenue_usd --dimensions ds --order -ds
+```
+
+Add the `country` dimension from the separate `customer` data source. Notice the `__` to indicate the join identifier:
+```
+mql query --metrics revenue_usd --dimensions ds --dimensions customer__country --order -ds
+```
+
+Run a ratio metric:
+```
+mql query --metrics cancellation_rate --dimensions ds --order -ds

@@ -1,0 +1,112 @@
+data_source: # This section includes metadata on the data source and the source definition.
+  name: transactions # Define the name of the source. This name can be updated in the future.
+  
+  # Provide a detailed description of the data source here and include any important details. Other configuration contributors will primarily use this description. 
+  # It is only surfaced in the UI under the lineage view on the metric page.
+  description: |
+    This table captures every transaction starting July 
+    02, 2014. Each row represents one transaction. There
+    will be a new row for any cancellations or alterations. 
+    There is a transaction, order, and customer id for 
+    every transaction. There is only one transaction id per 
+    transaction, but there can be many rows per order id and 
+    customer id. The `ds` or date is reflected in UTC.
+
+# List the emails of the owners of this data source. This list is currently not used for notifications, but it will be in the future.
+  owners: 
+    - support@transformdata.io
+
+# You can pass sql_table or sql_query. sql_table is the table from which the data source is constructed. You can also pass in the database name first.
+# sql_query allows you to aggregate or filter the data before passing it into Transform.
+  sql_query: |
+      SELECT
+        's98356237'              AS id_transaction
+        , 'o1001'                AS id_order
+        , 'c234567'              AS id_customer
+        , 10.200                 AS transaction_amount_usd
+        , 'purchase'             AS transaction_type_name
+        , '2020-10-01'           AS ds
+      UNION ALL SELECT 's59936436', 'o1002', 'c546356', 20.001, 'quick-buy', '2020-10-01'
+      UNION ALL SELECT 's98356237', 'o1003', 'c344543', 10.810, 'buy', '2020-10-02'
+      UNION ALL SELECT 's59936436', 'o1001', 'c234325', 50.110, 'alteration', '2020-10-02'
+      UNION ALL SELECT 's98356237', 'o1004', 'c234325', 60.001, 'buy', '2020-10-03'
+      UNION ALL SELECT 's59936436', 'o1001', 'c678768', 50.150, 'cancellation', '2020-10-03'
+      UNION ALL SELECT 's98356237', 'o1002', 'c234567', 80.760, 'cancellation', '2020-10-04'
+      UNION ALL SELECT 's59936436', 'o1005', 'c234325', 30.980, 'buy', '2020-10-04'
+
+# Define the primary, foreign, or unique key columns in your source that can be used to join to other data sources. 
+# Each join key should have a type of either primary, foreign, or unique. 
+# Additionally, keys can be referenced directly by column name from data source or they can be altered using an expression.
+  identifiers:
+    - name: transaction
+      type: primary
+      expr: id_transaction
+    - name: customer
+      type: foreign
+      expr: id_customer
+    - name: id_order
+      type: foreign
+# Composite Keys: Transform will never implicitly create a composite key. If a data source happens to have team_id and user_id, we won't assume that data source can be joined with user_team unless explicitly defined. 
+    - name: customer_order
+      type: foreign
+      identifiers:
+        - ref: customer
+        - name: id_order
+# need entity example
+
+# Define the fields from your data source to be aggregated as inputs to metrics (e.g. in  metrics.yaml). 
+# Each measure has an aggregation and optional description. A measure can simply reference a column or may be calculated using a SQL expression. 
+# Measures have a default expression of their name. The available aggregations are sum, max, min, count_distinct, and sum_boolean.
+  measures:
+    - name: transaction_amount_usd
+      description: The total USD value of the transaction.
+      agg: sum
+    - name: transactions
+      description: The total number of transactions.
+      expr: "1"
+      agg: sum
+    - name: quick_buy_amount_usd
+      description: The total USD value of the transactions that were 
+                   purchased using the "quick buy" button.
+      expr: CASE WHEN transaction_type_name = 'quick-buy' THEN transaction_amount_usd ELSE 0 END
+      agg: sum
+    - name: quick_buy_transactions
+      description: The total transactions bought as quick buy.
+      expr: CASE WHEN transaction_type_name = 'quick-buy' THEN TRUE ELSE FALSE END
+      agg: sum_boolean
+    - name: cancellations_usd
+      description: The total USD value of the transactions that were 
+                   cancelled.
+      expr: CASE WHEN transaction_type_name = 'cancellation' THEN transaction_amount_usd ELSE 0 END
+      agg: sum
+    - name: alterations_usd
+      description: The total USD value of the transactions that were 
+                   alterated.
+      expr: CASE WHEN transaction_type_name = 'alteration' THEN transaction_amount_usd ELSE 0 END
+      agg: sum
+
+# Define the dimensions from your source. Dimensions are qualitative values such as names, dates, or geographical data. 
+# Dimensions provide context to measures and are associated with metrics created from those measures to provide “metric by dimension” data slicing. 
+# Dimensions can either directly reference a column or may be calculated using a SQL expression.
+  dimensions:
+    - name: ds
+      type: time
+      type_params:
+        is_primary: True
+        time_format: YYYY-MM-DD
+        time_granularity: day
+    - name: is_large
+      type: categorical
+      expr: CASE WHEN transaction_amount_usd >= 30 THEN TRUE ELSE FALSE END
+    - name: quick_buy_transaction
+      type: categorical
+      expr: |
+        CASE 
+          WHEN transaction_type_name = ‘quick-buy’ THEN 'Quick Buy'
+          ELSE 'Not Quick Buy' 
+        END
+
+# Define the appropriate mutability for this data source. Mutability refers to how the data underlying this configuration (a sql table or the results of a sql query) changes. 
+# The following are the available options and a brief description of the type of data they describe.
+  mutability:
+    type: immutable
