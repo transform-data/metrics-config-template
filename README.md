@@ -18,7 +18,7 @@ python3 -m venv venv && source venv/bin/activate
 
 Install the Transform client CLI:
 ```
-pip3 install transform_mql
+pip3 install transform
 ```
 
 To authenticate to Transform using the CLI, have your Transform API key handy
