@@ -14,7 +14,6 @@ You'll need to save the Transform API key for your Service User within the [Gith
 
 
 ## CLI Quick Start Guide
-You will be asked to provide the API you created during setup, so have it handy.
 
 Some users prefer to set up a Python virtual environment in this directory, though this is optional:
 ```
@@ -30,7 +29,7 @@ pip install transform_mql
 ```
 mql setup
 ```
-
+You will be asked to provide the API you created during setup, so have it handy.
 ## MQL CLI Example
 Below is a list of common MQL commands.
 
