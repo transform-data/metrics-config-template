@@ -6,7 +6,7 @@ Transform uses Github Workflows to validate and commit new versions of your metr
 
 By default, we will run validation checks on open PRs, and commit new metric configs to Transform whenever a new commit is merged to the `main` branch.
 
-You'll need to save the Transform API key for your Service User within the Github Secrets for this repo under `TRANSFORM_API_KEY={TRANSFORM_API_KEY}` for the above actions to work properly.
+You'll need to save the Transform API key for your Service User within the [Github Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) for this repo under `TRANSFORM_API_KEY={TRANSFORM_API_KEY}` for the above actions to work properly.
 
 Please only keep the folder for your data warehouse.
 
