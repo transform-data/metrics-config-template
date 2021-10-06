@@ -18,7 +18,7 @@
 #  type_params:
 #    numerator: name_of_numerator_measure
 #    denominator: name_of_denominator_measure
-#  tier: "x" # define the relative importance of the metric. Options are 1,2,3 in order of most-least visible or important.
+#  tier: n # One of the numbers 1, 2, or 3 to define the relative importance of the metric (1 is most important)
 #---
 #metric:
 #  name: metric_name # enter in the name of the metric
@@ -35,4 +35,4 @@
 #      - x
 #      - y
 #      - z
-#  tier: "x"
+#  tier: n
