@@ -23,7 +23,7 @@ python3 -m venv venv && source venv/bin/activate
 
 1. Install the Transform client CLI:
 ```
-pip3 install transform_mql
+pip install transform_mql
 ```
 
 2. To authenticate to Transform MQL server using the CLI, navigate to this directory and run
