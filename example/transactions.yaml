@@ -16,24 +16,6 @@ data_source: # This section includes metadata on the data source and the source 
   owners: 
     - support@transformdata.io
 
-# You can pass sql_table or sql_query. sql_table is the table from which the data source is constructed. You can also pass in the database name first.
-# sql_query allows you to aggregate or filter the data before passing it into Transform.
-  sql_query: |
-      SELECT
-        's98356237'              AS id_transaction
-        , 'o1001'                AS id_order
-        , 'c234567'              AS id_customer
-        , 10.200                 AS transaction_amount_usd
-        , 'purchase'             AS transaction_type_name
-        , '2020-10-01'           AS ds
-      UNION ALL SELECT 's59936436', 'o1002', 'c546356', 20.001, 'quick-buy', '2020-10-01'
-      UNION ALL SELECT 's98356237', 'o1003', 'c344543', 10.810, 'buy', '2020-10-02'
-      UNION ALL SELECT 's59936436', 'o1001', 'c234325', 50.110, 'alteration', '2020-10-02'
-      UNION ALL SELECT 's98356237', 'o1004', 'c234325', 60.001, 'buy', '2020-10-03'
-      UNION ALL SELECT 's59936436', 'o1001', 'c678768', 50.150, 'cancellation', '2020-10-03'
-      UNION ALL SELECT 's98356237', 'o1002', 'c234567', 80.760, 'cancellation', '2020-10-04'
-      UNION ALL SELECT 's59936436', 'o1005', 'c234325', 30.980, 'buy', '2020-10-04'
-
 # Define the primary, foreign, or unique key columns in your source that can be used to join to other data sources. 
 # Each join key should have a type of either primary, foreign, or unique. 
 # Additionally, keys can be referenced directly by column name from data source or they can be altered using an expression.
@@ -102,7 +84,7 @@ data_source: # This section includes metadata on the data source and the source 
       type: categorical
       expr: |
         CASE 
-          WHEN transaction_type_name = ‘quick-buy’ THEN 'Quick Buy'
+          WHEN transaction_type_name = 'quick-buy' THEN 'Quick Buy'
           ELSE 'Not Quick Buy' 
         END
 
@@ -110,3 +92,114 @@ data_source: # This section includes metadata on the data source and the source 
 # The following are the available options and a brief description of the type of data they describe.
   mutability:
     type: immutable
+
+# You can pass sql_table or sql_query. sql_table is the table from which the data source is constructed. You can also pass in the database name first.
+# sql_query allows you to aggregate or filter the data before passing it into Transform.
+  sql_query: |
+      SELECT
+        's98356237'              AS id_transaction
+        , 'o1001'                AS id_order
+        , 'c234567'              AS id_customer
+        , 10.200                 AS transaction_amount_usd
+        , 'purchase'             AS transaction_type_name
+        , '2022-01-25'           AS ds
+      UNION ALL SELECT 's59936446', 'o1032', 'c500023', 439.32, 'quick-buy', '2022-01-26'
+      UNION ALL SELECT 's59936491', 'o1019', 'c500007', 205.03, 'quick-buy', '2022-01-27'
+      UNION ALL SELECT 's59936498', 'o1021', 'c500037', 174.28, 'quick-buy', '2022-01-27'
+      UNION ALL SELECT 's59936456', 'o1018', 'c500026', 343.13, 'quick-buy', '2022-01-28'
+      UNION ALL SELECT 's59936486', 'o1028', 'c500033', 280.68, 'quick-buy', '2022-01-28'
+      UNION ALL SELECT 's59936493', 'o1026', 'c500027', 96.75, 'quick-buy', '2022-01-28'
+      UNION ALL SELECT 's59936450', 'o1036', 'c500024', 330.12, 'cancellation', '2022-01-29'
+      UNION ALL SELECT 's59936504', 'o1003', 'c500042', 290.38, 'buy', '2022-01-29'
+      UNION ALL SELECT 's59936511', 'o1006', 'c500034', 39.74, 'quick-buy', '2022-01-29'
+      UNION ALL SELECT 's59936527', 'o1034', 'c500033', 384.96, 'buy', '2022-01-30'
+      UNION ALL SELECT 's59936468', 'o1031', 'c500011', 273.94, 'alteration', '2022-01-31'
+      UNION ALL SELECT 's59936462', 'o1012', 'c500044', 102.49, 'buy', '2022-02-01'
+      UNION ALL SELECT 's59936496', 'o1030', 'c500003', 379.7, 'alteration', '2022-02-01'
+      UNION ALL SELECT 's59936449', 'o1018', 'c500004', 46.59, 'alteration', '2022-02-02'
+      UNION ALL SELECT 's59936488', 'o1004', 'c500024', 126.95, 'cancellation', '2022-02-02'
+      UNION ALL SELECT 's59936451', 'o1026', 'c500005', 9.85, 'quick-buy', '2022-02-03'
+      UNION ALL SELECT 's59936475', 'o1022', 'c500004', 306.33, 'quick-buy', '2022-02-04'
+      UNION ALL SELECT 's59936485', 'o1025', 'c500040', 278.47, 'quick-buy', '2022-02-04'
+      UNION ALL SELECT 's59936508', 'o1046', 'c500028', 443.13, 'cancellation', '2022-02-04'
+      UNION ALL SELECT 's59936482', 'o1019', 'c500016', 233.38, 'quick-buy', '2022-02-05'
+      UNION ALL SELECT 's59936507', 'o1012', 'c500032', 218.18, 'buy', '2022-02-05'
+      UNION ALL SELECT 's59936437', 'o1012', 'c500031', 80.85, 'buy', '2022-02-07'
+      UNION ALL SELECT 's59936478', 'o1025', 'c500042', 10.61, 'alteration', '2022-02-07'
+      UNION ALL SELECT 's59936494', 'o1039', 'c500024', 169.43, 'alteration', '2022-02-07'
+      UNION ALL SELECT 's59936455', 'o1044', 'c500023', 220.65, 'alteration', '2022-02-08'
+      UNION ALL SELECT 's59936521', 'o1016', 'c500005', 193.25, 'quick-buy', '2022-02-08'
+      UNION ALL SELECT 's59936520', 'o1012', 'c500002', 212.02, 'cancellation', '2022-02-10'
+      UNION ALL SELECT 's59936500', 'o1013', 'c500011', 439.69, 'alteration', '2022-02-11'
+      UNION ALL SELECT 's59936512', 'o1050', 'c500030', 169.45, 'cancellation', '2022-02-11'
+      UNION ALL SELECT 's59936516', 'o1010', 'c500008', 268.93, 'quick-buy', '2022-02-11'
+      UNION ALL SELECT 's59936481', 'o1034', 'c500045', 225, 'buy', '2022-02-12'
+      UNION ALL SELECT 's59936501', 'o1005', 'c500042', 393.34, 'buy', '2022-02-12'
+      UNION ALL SELECT 's59936509', 'o1037', 'c500014', 46.18, 'quick-buy', '2022-02-12'
+      UNION ALL SELECT 's59936458', 'o1005', 'c500001', 127.32, 'cancellation', '2022-02-13'
+      UNION ALL SELECT 's59936470', 'o1031', 'c500009', 365.4, 'buy', '2022-02-13'
+      UNION ALL SELECT 's59936472', 'o1023', 'c500023', 283.04, 'buy', '2022-02-13'
+      UNION ALL SELECT 's59936506', 'o1035', 'c500014', 427.07, 'buy', '2022-02-13'
+      UNION ALL SELECT 's59936459', 'o1006', 'c500036', 446.94, 'buy', '2022-02-14'
+      UNION ALL SELECT 's59936467', 'o1003', 'c500045', 463.19, 'cancellation', '2022-02-14'
+      UNION ALL SELECT 's59936522', 'o1046', 'c500006', 42.8, 'quick-buy', '2022-02-14'
+      UNION ALL SELECT 's59936528', 'o1048', 'c500047', 112.87, 'cancellation', '2022-02-14'
+      UNION ALL SELECT 's59936444', 'o1033', 'c500036', 306.64, 'buy', '2022-02-16'
+      UNION ALL SELECT 's59936440', 'o1048', 'c500003', 27.99, 'quick-buy', '2022-02-17'
+      UNION ALL SELECT 's59936495', 'o1034', 'c500025', 147.05, 'quick-buy', '2022-02-17'
+      UNION ALL SELECT 's59936447', 'o1011', 'c500022', 378.15, 'alteration', '2022-02-18'
+      UNION ALL SELECT 's59936487', 'o1027', 'c500021', 460.01, 'quick-buy', '2022-02-18'
+      UNION ALL SELECT 's59936529', 'o1050', 'c500048', 62.56, 'alteration', '2022-02-18'
+      UNION ALL SELECT 's59936533', 'o1015', 'c500040', 468.64, 'cancellation', '2022-02-19'
+      UNION ALL SELECT 's59936453', 'o1031', 'c500022', 145.27, 'alteration', '2022-02-20'
+      UNION ALL SELECT 's59936476', 'o1014', 'c500029', 304.32, 'alteration', '2022-02-20'
+      UNION ALL SELECT 's59936483', 'o1045', 'c500010', 455.68, 'cancellation', '2022-02-20'
+      UNION ALL SELECT 's59936535', 'o1005', 'c500033', 403.27, 'buy', '2022-02-20'
+      UNION ALL SELECT 's59936519', 'o1018', 'c500022', 110.03, 'quick-buy', '2022-02-21'
+      UNION ALL SELECT 's59936517', 'o1046', 'c500030', 458.16, 'cancellation', '2022-02-23'
+      UNION ALL SELECT 's59936443', 'o1006', 'c500038', 87.26, 'cancellation', '2022-02-24'
+      UNION ALL SELECT 's59936480', 'o1033', 'c500021', 448.12, 'buy', '2022-02-25'
+      UNION ALL SELECT 's59936457', 'o1015', 'c500014', 142.04, 'cancellation', '2022-02-26'
+      UNION ALL SELECT 's59936469', 'o1012', 'c500032', 87.43, 'buy', '2022-02-26'
+      UNION ALL SELECT 's59936532', 'o1030', 'c500002', 443.84, 'buy', '2022-02-26'
+      UNION ALL SELECT 's59936510', 'o1039', 'c500050', 409.74, 'alteration', '2022-02-27'
+      UNION ALL SELECT 's59936460', 'o1042', 'c500041', 5.99, 'alteration', '2022-02-28'
+      UNION ALL SELECT 's59936473', 'o1035', 'c500049', 49.74, 'quick-buy', '2022-02-28'
+      UNION ALL SELECT 's59936463', 'o1042', 'c500002', 437.84, 'buy', '2022-03-01'
+      UNION ALL SELECT 's59936525', 'o1006', 'c500008', 236.69, 'alteration', '2022-03-01'
+      UNION ALL SELECT 's59936479', 'o1030', 'c500041', 39.57, 'buy', '2022-03-02'
+      UNION ALL SELECT 's59936492', 'o1031', 'c500004', 268.32, 'buy', '2022-03-02'
+      UNION ALL SELECT 's59936465', 'o1003', 'c500010', 307.26, 'buy', '2022-03-04'
+      UNION ALL SELECT 's59936474', 'o1039', 'c500018', 181.93, 'quick-buy', '2022-03-04'
+      UNION ALL SELECT 's59936448', 'o1048', 'c500007', 314.66, 'cancellation', '2022-03-05'
+      UNION ALL SELECT 's59936442', 'o1010', 'c500016', 421.26, 'cancellation', '2022-03-07'
+      UNION ALL SELECT 's59936466', 'o1006', 'c500009', 498.8, 'quick-buy', '2022-03-08'
+      UNION ALL SELECT 's59936484', 'o1047', 'c500044', 485.52, 'alteration', '2022-03-08'
+      UNION ALL SELECT 's59936526', 'o1037', 'c500012', 358.79, 'alteration', '2022-03-09'
+      UNION ALL SELECT 's59936461', 'o1016', 'c500000', 103.79, 'alteration', '2022-03-10'
+      UNION ALL SELECT 's59936471', 'o1005', 'c500034', 173.77, 'buy', '2022-03-10'
+      UNION ALL SELECT 's59936514', 'o1046', 'c500013', 113.73, 'alteration', '2022-03-10'
+      UNION ALL SELECT 's59936530', 'o1006', 'c500019', 44.75, 'quick-buy', '2022-03-10'
+      UNION ALL SELECT 's59936503', 'o1028', 'c500003', 62.46, 'alteration', '2022-03-13'
+      UNION ALL SELECT 's59936524', 'o1022', 'c500016', 225.69, 'cancellation', '2022-03-13'
+      UNION ALL SELECT 's59936489', 'o1018', 'c500021', 408.49, 'cancellation', '2022-03-14'
+      UNION ALL SELECT 's59936497', 'o1007', 'c500026', 306.78, 'cancellation', '2022-03-14'
+      UNION ALL SELECT 's59936438', 'o1020', 'c500013', 449.18, 'alteration', '2022-03-15'
+      UNION ALL SELECT 's59936505', 'o1020', 'c500011', 329.43, 'alteration', '2022-03-15'
+      UNION ALL SELECT 's59936464', 'o1039', 'c500008', 301.34, 'cancellation', '2022-03-17'
+      UNION ALL SELECT 's59936531', 'o1008', 'c500042', 250.57, 'quick-buy', '2022-03-17'
+      UNION ALL SELECT 's59936441', 'o1020', 'c500006', 165.88, 'buy', '2022-03-18'
+      UNION ALL SELECT 's59936513', 'o1010', 'c500000', 31.83, 'buy', '2022-03-20'
+      UNION ALL SELECT 's59936445', 'o1022', 'c500013', 96.61, 'cancellation', '2022-03-22'
+      UNION ALL SELECT 's59936523', 'o1044', 'c500031', 353.94, 'quick-buy', '2022-03-22'
+      UNION ALL SELECT 's59936534', 'o1025', 'c500029', 165.38, 'buy', '2022-03-22'
+      UNION ALL SELECT 's59936536', 'o1030', 'c500013', 313.18, 'quick-buy', '2022-03-22'
+      UNION ALL SELECT 's59936518', 'o1042', 'c500014', 78.16, 'cancellation', '2022-03-23'
+      UNION ALL SELECT 's59936439', 'o1044', 'c500005', 270.69, 'buy', '2022-03-24'
+      UNION ALL SELECT 's59936499', 'o1000', 'c500047', 337.46, 'cancellation', '2022-03-24'
+      UNION ALL SELECT 's59936502', 'o1010', 'c500039', 384.49, 'quick-buy', '2022-03-24'
+      UNION ALL SELECT 's59936515', 'o1039', 'c500047', 50.58, 'buy', '2022-03-24'
+      UNION ALL SELECT 's59936452', 'o1015', 'c500035', 358.47, 'alteration', '2022-03-25'
+      UNION ALL SELECT 's59936477', 'o1035', 'c500032', 443.5, 'alteration', '2022-03-25'
+      UNION ALL SELECT 's59936454', 'o1039', 'c500019', 312.06, 'cancellation', '2022-03-26'
+      UNION ALL SELECT 's59936490', 'o1023', 'c500031', 81.15, 'cancellation', '2022-03-26'
