@@ -28,6 +28,7 @@ data_source:
   mutability:
     type: immutable
 
+  # CAST(col AS int) and CAST(col as datetime) not required when using columns from a data warehouse table or SQL statement based off of a table. It is used here for BigQuery to resolve improperly cast STRING data when using "UNION ALL" data.
   sql_query: |
     SELECT
       id_customer
