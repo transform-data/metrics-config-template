@@ -42,30 +42,30 @@ data_source: # This section includes metadata on the data source and the source 
   measures:
     - name: transaction_amount_usd
       description: The total USD value of the transaction.
-      agg: sum
+      agg: SUM
     - name: transactions
       description: The total number of transactions.
       expr: "1"
-      agg: sum
+      agg: SUM
     - name: quick_buy_amount_usd
       description: The total USD value of the transactions that were 
                    purchased using the "quick buy" button.
       expr: CASE WHEN transaction_type_name = 'quick-buy' THEN transaction_amount_usd ELSE 0 END
-      agg: sum
+      agg: SUM
     - name: quick_buy_transactions
       description: The total transactions bought as quick buy.
       expr: CASE WHEN transaction_type_name = 'quick-buy' THEN TRUE ELSE FALSE END
-      agg: sum_boolean
+      agg: SUM_BOOLEAN
     - name: cancellations_usd
       description: The total USD value of the transactions that were 
                    cancelled.
       expr: CASE WHEN transaction_type_name = 'cancellation' THEN transaction_amount_usd ELSE 0 END
-      agg: sum
+      agg: SUM
     - name: alterations_usd
       description: The total USD value of the transactions that were 
-                   alterated.
+                   altered.
       expr: CASE WHEN transaction_type_name = 'alteration' THEN transaction_amount_usd ELSE 0 END
-      agg: sum
+      agg: SUM
 
 # Define the dimensions from your source. Dimensions are qualitative values such as names, dates, or geographical data. 
 # Dimensions provide context to measures and are associated with metrics created from those measures to provide “metric by dimension” data slicing. 
@@ -95,8 +95,17 @@ data_source: # This section includes metadata on the data source and the source 
 
 # You can pass sql_table or sql_query. sql_table is the table from which the data source is constructed. You can also pass in the database name first.
 # sql_query allows you to aggregate or filter the data before passing it into Transform.
+# CAST(col AS int) and CAST(col as datetime) not required when using columns from a data warehouse table or SQL statement based off of a table. It is used here for BigQuery to resolve improperly cast STRING data when using "UNION ALL" data.
   sql_query: |
-      SELECT
+    SELECT
+      id_transaction
+      , id_order
+      , id_customer
+      , CAST(transaction_amount_usd AS int) AS transaction_amount_usd
+      , transaction_type_name
+      , CAST(ds as datetime) as ds
+    FROM (
+        SELECT
         's98356237'              AS id_transaction
         , 'o1001'                AS id_order
         , 'c234567'              AS id_customer
@@ -572,3 +581,4 @@ data_source: # This section includes metadata on the data source and the source 
         UNION ALL SELECT 's59936609', 'o1151', 'c500068', 322.52, 'buy', '2022-03-29'
         UNION ALL SELECT 's59936641', 'o1358', 'c500102', 35.06, 'buy', '2022-03-29'
         UNION ALL SELECT 's59936715', 'o1840', 'c500373', 460.36, 'alteration', '2022-03-29'
+      )
