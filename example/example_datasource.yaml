@@ -54,7 +54,6 @@
 #	    type: time # This will always be time for time dimensions
 #			type_params:
 #				is_primary: # true or false 
-#				time_format: # currently only YYYY-MM-DD is supported
 #				time_granularity: # currently only day is supported
 #	  - name: categorical_dim_column_name # The name of the column
 #	    type: categorical # This will always be categorical for categorical dimensions
