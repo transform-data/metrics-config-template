@@ -75,7 +75,6 @@ data_source: # This section includes metadata on the data source and the source 
       type: time
       type_params:
         is_primary: True
-        time_format: YYYY-MM-DD
         time_granularity: day
     - name: is_large
       type: categorical
