@@ -1,0 +1,32 @@
+# Sample BitBucket Pipeline. 
+# Runs a commit when code to either master or main branch is updated.
+# Runs a validate when code is updated in any other branch. 
+
+image: python:3.8
+
+pipelines:
+  default:
+      - step:
+          name: Install dependencies & run commit script
+          script:
+            - echo "Running Transform Validate on current branch"
+            - python -m pip install --upgrade pip
+            - pip install transform_tools>=1.0.9
+            - python -m transform_tools.validate validate
+  branches:
+    master:
+      - step:
+          name: Install dependencies & run commit script
+          script:
+            - echo "Running Transform Commit on Master"
+            - python -m pip install --upgrade pip
+            - pip install transform_tools>=1.0.9
+            - python -m transform_tools.validate commit
+    main:
+      - step:
+          name: Install dependencies & run commit script
+          script:
+            - echo "Running Transform Commit on Master"
+            - python -m pip install --upgrade pip
+            - pip install transform_tools>=1.0.9
+            - python -m transform_tools.validate commit
