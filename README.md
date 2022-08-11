@@ -12,6 +12,15 @@ By default, we will run validation checks on open PRs, and commit new metric con
 
 You'll need to save the Transform API key for your Service User within the [Github Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) for this repo under `TRANSFORM_API_KEY={TRANSFORM_API_KEY}` for the above actions to work properly.
 
+## Congifure BitBucket Pipelines
+Transform also uses BitBucket Pipelines to validate and commit new versions of your metrics configs to our service. In this template repo, we've already set up these workflows for you in the `.bitbucket-pipelines.yml` directory.
+
+By default, we will run validation checks on open PRs, and commit new metric configs to Transform whenever a new commit is merged to the `main` or `master` branch.
+
+You'll need to save the Transform API key for your Service User within the [BitBucket Variables](https://support.atlassian.com/bitbucket-cloud/docs/variables-and-secrets/#User-defined-variables) for this repo under `TRANSFORM_API_KEY={TRANSFORM_API_KEY}` for the above actions to work properly.
+
+<img width="1792" alt="Screen Shot 2022-08-11 at 4 40 12 PM" src="https://user-images.githubusercontent.com/48079901/184261300-5c7cb5c6-347c-4228-ac13-af41afe53524.png">
+
 
 ## CLI Quick Start Guide
 
