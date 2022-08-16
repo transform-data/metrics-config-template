@@ -5,13 +5,16 @@ Welcome to your new Transform Project! See full install instructions on the [ins
 * Learn more about Transform [in the docs](https://www.notion.so/transformdata/Transform-Documentation-4eb96a3207634834ab1ae8b5b23923ff)
 * Reach out to our team at [support@transformdata.io](mailto:support@transformdata.io) for support or to setup a shared slack channel
 
-## Congifure Github Workflows
+## Configure Github Workflows
 Transform uses Github Workflows to validate and commit new versions of your metrics configs to our service. In this template repo, we've already set up these workflows for you in the `/.github` directory.
 
 By default, we will run validation checks on open PRs, and commit new metric configs to Transform whenever a new commit is merged to the `main` branch.
 
 You'll need to save the Transform API key for your Service User within the [Github Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) for this repo under `TRANSFORM_API_KEY={TRANSFORM_API_KEY}` for the above actions to work properly.
 
+## Optional: Integrating Into An Existing Repository
+
+Rather than storing your configs in a new repo, you can store them in specific directory within an existing repo. In addition to configuring the Github Workflows above, you'll need to save the path to the directory of configs (relative to the repo-root, unquoted), within the Github Secrets for this existing repo under `TRANSFORM_CONFIG_DIR={TRANSFORM_CONFIG_DIR}` for the above actions to work properly.
 
 ## CLI Quick Start Guide
 
