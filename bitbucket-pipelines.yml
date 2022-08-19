@@ -1,32 +1,37 @@
-# Sample BitBucket Pipeline. 
-# Runs a commit when code to either master or main branch is updated.
-# Runs a validate when code is updated in any other branch. 
+#  Template python-build
+
+#  This template allows you to validate your python code.
+#  The workflow allows running tests and code linting on the default branch.
 
 image: python:3.8
 
 pipelines:
   default:
     - step:
-        name: Install dependencies & run commit script
+        name: Install dependencies & run validate script on branch
         script:
           - echo "Running Transform Validate on current branch"
+          - export SOURCE_CONTROL="BITBUCKET"
           - python -m pip install --upgrade pip
           - pip install transform_tools>=1.0.9
           - python -m transform_tools.validate validate
+            
   branches:
     master:
       - step:
-          name: Install dependencies & run commit script
+          name: Install dependencies & run commit script on master
           script:
             - echo "Running Transform Commit on Master"
+            - export SOURCE_CONTROL="BITBUCKET"
             - python -m pip install --upgrade pip
             - pip install transform_tools>=1.0.9
             - python -m transform_tools.validate commit
     main:
       - step:
-          name: Install dependencies & run commit script
+          name: Install dependencies & run commit script on main
           script:
-            - echo "Running Transform Commit on Master"
+            - echo "Running Transform Commit on Main"
+            - export SOURCE_CONTROL="BITBUCKET"
             - python -m pip install --upgrade pip
             - pip install transform_tools>=1.0.9
             - python -m transform_tools.validate commit
