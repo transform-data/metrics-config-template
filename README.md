@@ -12,6 +12,8 @@ By default, we will run validation checks on open PRs, and commit new metric con
 
 You'll need to save the Transform API key for your Service User within the [Github Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) for this repo under `TRANSFORM_API_KEY={TRANSFORM_API_KEY}` for the above actions to work properly.
 
+<img width="1782" alt="Screen Shot 2022-08-22 at 3 05 27 PM" src="https://user-images.githubusercontent.com/48079901/186027082-7eb6010a-dc97-4af4-ad90-701ced95c8d3.png">
+
 ## Congifure BitBucket Pipelines
 Transform also uses BitBucket Pipelines to validate and commit new versions of your metrics configs to our service. In this template repo, we've already set up these workflows for you in the `.bitbucket-pipelines.yml` directory.
 
