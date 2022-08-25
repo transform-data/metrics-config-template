@@ -15,7 +15,7 @@ You'll need to save the Transform API key for your Service User within the [Gith
 <img width="1782" alt="Screen Shot 2022-08-22 at 3 05 27 PM" src="https://user-images.githubusercontent.com/48079901/186027082-7eb6010a-dc97-4af4-ad90-701ced95c8d3.png">
 
 ## Congifure BitBucket Pipelines
-Transform also uses BitBucket Pipelines to validate and commit new versions of your metrics configs to our service. In this template repo, we've already set up these workflows for you in the `.bitbucket-pipelines.yml` directory.
+Transform also uses BitBucket Pipelines to validate and commit new versions of your metrics configs to our service. In this template repo, we've already set up these workflows for you in the `bitbucket-pipelines.yml` file.
 
 By default, we will run validation checks on open PRs, and commit new metric configs to Transform whenever a new commit is merged to the `main` or `master` branch.
 
@@ -23,9 +23,18 @@ You'll need to save the Transform API key for your Service User within the [BitB
 
 <img width="1792" alt="Screen Shot 2022-08-11 at 4 40 12 PM" src="https://user-images.githubusercontent.com/48079901/184261300-5c7cb5c6-347c-4228-ac13-af41afe53524.png">
 
+## Congifure GitLab Pipelines
+Transform also uses GitLab Pipelines to validate and commit new versions of your metrics configs to our service. In this template repo, we've already set up these workflows for you in the `.gitlab-ci.yml` file.
+
+By default, we will run validation checks on open PRs, and commit new metric configs to Transform whenever a new commit is merged to your default branch.
+
+You'll need to save the Transform API key for your Service User within the [GitLab Variables](https://docs.gitlab.com/ee/ci/variables/) for this repo under `TRANSFORM_API_KEY={TRANSFORM_API_KEY}` for the above actions to work properly.
+
+<img width="1782" alt="Screen Shot 2022-08-25 at 10 56 52 AM" src="https://user-images.githubusercontent.com/48079901/186736411-a3dde080-5aae-4dcb-b609-8cb5b697bdd4.png">
+
 ## Optional: Integrating Into An Existing Repository
 
-Rather than storing your configs in a new repo, you can store them in specific directory within an existing repo. In addition to configuring the Github Workflows above, you'll need to save the path to the directory of configs (relative to the repo-root, unquoted), within the Github Secrets for this existing repo under `TRANSFORM_CONFIG_DIR={TRANSFORM_CONFIG_DIR}` for the above actions to work properly.
+Rather than storing your configs in a new repo, you can store them in specific directory within an existing repo. In addition to configuring the Github/Gitlab/Bitbucket Workflows & Pipelines above, you'll need to save the path to the directory of configs (relative to the repo-root, unquoted), within the Github Secrets/Gitlab Variables/Bitbucket Variables for this existing repo under `TRANSFORM_CONFIG_DIR={TRANSFORM_CONFIG_DIR}` for the above actions to work properly.
 
 ## CLI Quick Start Guide
 
