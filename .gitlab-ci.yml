@@ -1,0 +1,34 @@
+image: python:3.8.5 # arbitrarily chosen
+
+# Runs before either Validate or Commit -- Install Transform Tools
+before_script:
+  - echo "Installing Transform Tools"
+  - python --version  # For debugging
+  - python -m pip install --upgrade pip
+  - pip install transform_tools>=1.0.12
+
+variables:
+    SOURCE_CONTROL: "GITLAB"
+    TRANSFORM_API_KEY: $TRANSFORM_API_KEY
+    REPO: $CI_PROJECT_PATH
+
+validate:
+  script:
+      - echo "Running Transform Validate on $CI_COMMIT_REF_NAME branch"
+      - echo "Checking for manually set TRANSFORM_CONFIG_DIR"
+      - if [[ -z "${TRANSFORM_CONFIG_DIR}" ]]; then TRANSFORM_CONFIG_DIR=""; else TRANSFORM_CONFIG_DIR="${TRANSFORM_CONFIG_DIR}"; fi
+      - python -m transform_tools.validate validate
+      - echo "Successfully ran Transform Validate on $CI_COMMIT_REF_NAME branch"
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+commit:
+  script:
+      - echo "Running Transform Commit on $CI_COMMIT_REF_NAME branch"
+      - echo "Checking for manually set TRANSFORM_CONFIG_DIR"
+      - echo $TRANSFORM_API_KEY
+      - if [[ -z "${TRANSFORM_CONFIG_DIR}" ]]; then TRANSFORM_CONFIG_DIR=""; else TRANSFORM_CONFIG_DIR="${TRANSFORM_CONFIG_DIR}"; fi
+      - python -m transform_tools.validate commit
+      - echo "Successfully ran Transform Commit on $CI_COMMIT_REF_NAME branch"
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
