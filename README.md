@@ -14,7 +14,7 @@ You'll need to save the Transform API key for your Service User within the [Gith
 
 <img width="1782" alt="Screen Shot 2022-08-22 at 3 05 27 PM" src="https://user-images.githubusercontent.com/48079901/186027082-7eb6010a-dc97-4af4-ad90-701ced95c8d3.png">
 
-## Congifure BitBucket Pipelines
+## Configure BitBucket Pipelines
 Transform also uses BitBucket Pipelines to validate and commit new versions of your metrics configs to our service. In this template repo, we've already set up these workflows for you in the `bitbucket-pipelines.yml` file.
 
 By default, we will run validation checks on open PRs, and commit new metric configs to Transform whenever a new commit is merged to the `main` or `master` branch.
@@ -23,7 +23,7 @@ You'll need to save the Transform API key for your Service User within the [BitB
 
 <img width="1792" alt="Screen Shot 2022-08-11 at 4 40 12 PM" src="https://user-images.githubusercontent.com/48079901/184261300-5c7cb5c6-347c-4228-ac13-af41afe53524.png">
 
-## Congifure GitLab Pipelines
+## Configure GitLab Pipelines
 Transform also uses GitLab Pipelines to validate and commit new versions of your metrics configs to our service. In this template repo, we've already set up these workflows for you in the `.gitlab-ci.yml` file.
 
 By default, we will run validation checks on open PRs, and commit new metric configs to Transform whenever a new commit is merged to your default branch.
