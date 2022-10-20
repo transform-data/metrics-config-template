@@ -1,4 +1,4 @@
-image: python:3.8.5 # arbitrarily chosen
+image: python:3.9
 
 # Runs before either Validate or Commit -- Install Transform Tools
 before_script:
