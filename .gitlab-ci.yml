@@ -26,7 +26,6 @@ commit:
   script:
       - echo "Running Transform Commit on $CI_COMMIT_REF_NAME branch"
       - echo "Checking for manually set TRANSFORM_CONFIG_DIR"
-      - echo $TRANSFORM_API_KEY
       - if [[ -z "${TRANSFORM_CONFIG_DIR}" ]]; then TRANSFORM_CONFIG_DIR=""; else TRANSFORM_CONFIG_DIR="${TRANSFORM_CONFIG_DIR}"; fi
       - python -m transform_tools.validate commit
       - echo "Successfully ran Transform Commit on $CI_COMMIT_REF_NAME branch"
